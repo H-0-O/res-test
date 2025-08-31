@@ -16,7 +16,7 @@ return new class extends Migration
 
             //The actual room number (N.O)
             $table->string('number');
-            $table->foreignUlid('type')->constrained('room_types' , 'id');
+            $table->foreignUlid('room_type_id')->constrained('room_types' , 'id');
             $table->timestamps();
         });
     }
