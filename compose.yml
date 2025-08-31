@@ -1,0 +1,46 @@
+services:
+  webserver:
+    image: caddy:2.9.1-alpine
+    container_name: reservation-test-webserver
+    ports:
+      - "${WEBSERVER_OUTER_PORT:-1020}:80"
+    volumes:
+      - ./docker-resources/webserver/Caddyfile:/etc/caddy/Caddyfile
+      # - ./docker-resources/webserver/data:/data
+      - ./backend:/var/www/html
+    environment:
+      DOMAIN: ${DOMAIN:-localhost}
+  app:
+    image: reservation-test-app
+    build:
+      context: ./docker-resources/php-8
+    container_name: reservation-test-app
+    volumes:
+      - ./backend:/var/www/html
+      - ./docker-resources/php-8/conf:/usr/local/etc/php/conf.d
+
+  db:
+    image: mysql:8.0
+    container_name: reservation-test-db
+    ports:
+      - "${MYSQL_OUTER_PORT}:3306"
+    environment:
+      MYSQL_USER: ${DB_USERNAME:?You need to set database User}
+      MYSQL_PASSWORD: ${DB_PASSWORD:?You need to set database Password}
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD:?You need to set database Root Password}
+      MYSQL_DATABASE: ${DB_DATABASE:?You need to set database name}
+    volumes:
+      - db-data:/var/lib/mysql
+      - ./docker-resources/db/home:/home
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: reservation-test-phpmyadmin
+    ports:
+      - "${PHPMYADMIN_OUTER_PORT:-9136}:80"
+    environment:
+      PMA_HOST: db
+      PMA_PORT: 3306
+      UPLOAD_LIMIT: 1G
+
+volumes:
+  db-data:
