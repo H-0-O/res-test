@@ -14,10 +14,43 @@ services:
     image: reservation-test-app
     build:
       context: ./docker-resources/php-8
+      target: fpm-runner
     container_name: reservation-test-app
     volumes:
       - ./backend:/var/www/html
       - ./docker-resources/php-8/conf:/usr/local/etc/php/conf.d
+    depends_on:
+      - db
+
+  scheduler:
+    image: reservation-test-app
+    build:
+      context: ./docker-resources/php-8
+      target: build
+    container_name: reservation-test-scheduler
+    volumes:
+      - ./backend:/var/www/html
+      - ./docker-resources/php-8/conf:/usr/local/etc/php/conf.d
+    depends_on:
+      - app
+    
+    restart: unless-stopped
+    entrypoint: php artisan schedule:work
+
+  queue:
+    image: reservation-test-app
+    build: 
+      context: ./docker-resources/php-8
+      target: build
+    container_name: reservation-test-queue
+    volumes:
+      - ./backend:/var/www/html
+      - ./docker-resources/php-8/conf:/usr/local/etc/php/conf.d
+    depends_on:
+      - app
+    restart: unless-stopped
+    entrypoint: php artisan queue:work --sleep=3 --tries=3
+
 
   db:
     image: mysql:8.0
@@ -41,6 +74,8 @@ services:
       PMA_HOST: db
       PMA_PORT: 3306
       UPLOAD_LIMIT: 1G
+    depends_on:
+      - db
 
 volumes:
   db-data:

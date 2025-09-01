@@ -1,4 +1,4 @@
-FROM php:8.3-fpm-alpine3.20
+FROM php:8.3-fpm-alpine3.20 AS build
 
 
 RUN apk update
@@ -34,6 +34,9 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 
 WORKDIR /var/www/html
 
+# Stage 2
+
+FROM build AS fpm-runner
 
 EXPOSE 9000
 
