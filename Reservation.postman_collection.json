@@ -1,0 +1,110 @@
+{
+	"info": {
+		"_postman_id": "1817478c-fc24-4f16-a3ad-c5f650558a98",
+		"name": "Reservation",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "22391346",
+		"_collection_link": "https://planetary-rocket-576235.postman.co/workspace/Reservation-Test~0b0d674c-03a8-47ae-8c79-2d36f48e7169/collection/22391346-1817478c-fc24-4f16-a3ad-c5f650558a98?action=share&source=collection_link&creator=22391346"
+	},
+	"item": [
+		{
+			"name": "Room Types",
+			"item": [
+				{
+					"name": "Index",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BASE_URL}}/room-types/",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"room-types",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Show",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BASE_URL}}/room-types/:id",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"room-types",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "01k3zqnagc2bvjc8s8ndqk6aje"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "These apis used to see rooms and thier Inventories"
+		},
+		{
+			"name": "Reservations",
+			"item": [
+				{
+					"name": "Reserve",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"room_type_id\": \"01k41w3d81yt3edeymh5p8nv0x\",\n    \"requested_count\":\"5\",\n    \"date_to_reserve\":\"2025-09-26\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/reservations/",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"reservations",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "These api used to reserve room type for a date"
+		}
+	]
+}
