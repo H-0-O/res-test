@@ -26,7 +26,11 @@ class DatabaseSeeder extends Seeder
             $roomType->rooms()->createMany(
                 Room::factory()->count($count)->make()->toArray()
             );
-            $roomType->inventory()->createMany(
+
+            //here we reset the unique generator of dates for inventories to avoid duplicate entries error 
+            fake()->unique(true);
+
+            $roomType->inventories()->createMany(
                 Inventory::factory()->count(3)->make([
                     'total_rooms' => $count,
                     'available_rooms' => $count
