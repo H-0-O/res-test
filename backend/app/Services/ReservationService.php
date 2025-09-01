@@ -19,7 +19,7 @@ class ReservationService extends BaseService
         parent::__construct(new Reservation);
     }
 
-    public function reserve(ReserveDto $dto)
+    public function reserve(ReserveDto $dto): Reservation
     {
 
         return DB::transaction(function () use ($dto) {

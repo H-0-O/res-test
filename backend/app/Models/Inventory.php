@@ -30,4 +30,10 @@ class Inventory extends Model
     public function roomType(): BelongsTo {
         return $this->belongsTo(RoomType::class);
     }
+
+    public function casts():array{
+        return [
+            'date' => 'date:Y-m-d'
+        ];
+    }
 }

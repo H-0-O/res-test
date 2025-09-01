@@ -27,7 +27,8 @@ RUN docker-php-ext-install \
     mysqli \
     sockets \
     gd \
-    zip
+    zip \
+    pcntl
 
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
