@@ -32,6 +32,8 @@ RUN docker-php-ext-install \
 
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
+COPY ./entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
 
 WORKDIR /var/www/html
 
@@ -41,5 +43,7 @@ FROM build AS fpm-runner
 
 EXPOSE 9000
 
-ENTRYPOINT [ "php-fpm" ]
+ENTRYPOINT ["/entrypoint.sh"]
+
+CMD [ "php-fpm" ]
   
