@@ -2,9 +2,12 @@
 
 namespace Tests\Feature;
 
+use App\Enums\ReservationStatusEnum;
+use App\Jobs\CleanupExpiredReservationJob;
 use App\Models\Inventory;
 use App\Models\RoomType;
 use App\Models\User;
+use App\Services\ReservationService;
 use GuzzleHttp\Client;
 use GuzzleHttp\Promise\Promise;
 use GuzzleHttp\Promise\Utils;
