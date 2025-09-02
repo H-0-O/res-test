@@ -65,7 +65,7 @@
 					"response": []
 				}
 			],
-			"description": "These apis used to see rooms and thier Inventories"
+			"description": "These apis used to see rooms and their Inventories"
 		},
 		{
 			"name": "Reservations",
